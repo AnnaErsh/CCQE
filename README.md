@@ -1,5 +1,5 @@
 # CCQE
-Standalone version of the quasi-elastic reaction modelling according to the Llewellyn-Smith formula. 
+Standalone version of the quasi-elastic reaction modelling according to the Llewellyn-Smith formula.
 Currently is dependent on the vect.h file that is a part of the NuWro project.
 
 # Installation
@@ -29,6 +29,6 @@ The code needs 4 bool arguments:
 
 To run the code, use:
 ```
-./CCQE 1 1 1 1   
+./CCQE 1 1 1 1
 ```
 Where 1 1 1 1 should be exchanged to the desired reaction configuration
