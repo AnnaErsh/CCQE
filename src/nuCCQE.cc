@@ -1,3 +1,22 @@
+// This file is part of CCQE, a quasi-elastic reaction modeling module.
+// Portions of this file are derived from the NuWro project.
+//
+// Copyright (C) 2025 Anna Ershova
+// Copyright (C) NuWro Developers
+//
+// CCQE is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// CCQE is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with CCQE. If not, see <https://www.gnu.org/licenses/>.
+
 #include "nuCCQE.hh"
 #include <iostream>
 
@@ -7,7 +26,7 @@ namespace G4INCL {
 	{
     if(ifproton) part = particle::proton;
     else part = particle::neutron;
-    
+
     ff = new FormFactor(part, ifCC);
 
     if(ifmuon) ml = 105.65 * MeV;
@@ -18,7 +37,7 @@ namespace G4INCL {
       f = cosThetac;
       m = 105.658 * MeV;
     }
-    else 
+    else
     {
       f = 1;
       m = 0;
@@ -30,7 +49,7 @@ namespace G4INCL {
   {
   }
 
-  void nuQELChannel::fillFinalState() {};
+  void nuQELChannel::fillFinalState() {}
 
   double nuQELChannel::z(double q2)
   {
@@ -41,13 +60,13 @@ namespace G4INCL {
   {
     double Q2 = -q2;
 
-    return 1./4. * (pow2(m/M) - z(q2)) * 
+    return 1./4. * (pow2(m/M) - z(q2)) *
       (
         (4 - z(q2)) * pow2((ff->Ga)(Q2)) -
         (4 + z(q2)) * pow2((ff->Fv12)(Q2, part, 1)) -
-        z(q2) * pow2((ff->Fv12)(Q2, part, 2)) * (1 + 1./4. * z(q2)) - 
-        4 * (ff->Fv12)(Q2, part, 1) * (ff->Fv12)(Q2, part, 2) * z(q2) - 
-        (pow2(m/M)) * 
+        z(q2) * pow2((ff->Fv12)(Q2, part, 2)) * (1 + 1./4. * z(q2)) -
+        4 * (ff->Fv12)(Q2, part, 1) * (ff->Fv12)(Q2, part, 2) * z(q2) -
+        (pow2(m/M)) *
         (
           pow2((ff->Fv12)(Q2, part, 1) + (ff->Fv12)(Q2, part, 2)) +
           pow2((ff->Ga)(Q2) + 2 * ff->Fp(Q2)) +
@@ -86,8 +105,8 @@ namespace G4INCL {
     if(ifnu) k = 1;
     else k = -1;
     double suM2 = s_u / M / M;
-  	return pow2(M * G * f / Enu) / 8 / M_PI * 
+  	return pow2(M * G * f / Enu) / 8 / M_PI *
   	  		 (A(q2) + suM2 * (k * B(q2) + suM2 * C(q2)));
   }
 
-}
+} // namespace G4INCL

@@ -1,3 +1,22 @@
+// This file is part of CCQE, a quasi-elastic reaction modeling module.
+// Portions of this file are derived from the NuWro project.
+//
+// Copyright (C) 2025 Anna Ershova
+// Copyright (C) NuWro Developers
+//
+// CCQE is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// CCQE is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with CCQE. If not, see <https://www.gnu.org/licenses/>.
+
 #ifndef _vec_h_
 #define _vec_h_
 #include <iostream>
@@ -12,11 +31,11 @@ using namespace std;
 class vec
 {
 public:
-  double x, y, z;                                 ///< Cartesian coordinates 
+  double x, y, z;                                 ///< Cartesian coordinates
 
 public:
    inline double &operator[] (int i);              ///< treat vec as double[3]
-   inline vec();                                   ///< vec=0 
+   inline vec();                                   ///< vec=0
    inline vec (double x1, double x2, double x3);   ///< vec from coordinates
    inline vec (string v);                    ///< vec from string ex. "1 2 3"
    inline double length ();                        ///< vector length
@@ -38,17 +57,17 @@ public:
    inline friend vec operator/ (vec b, double a);  ///< div by number
    inline vec operator/= (double a);               ///< div by number
    inline vec fromZto(vec new_axis);               ///< rotate self so that 0,0,1 goes to new_axis
-   inline friend vec min (vec a, vec b);           ///< min(a.x,b.x) min(a.y,b.y)  min(a.z,b.z) 
-   inline friend vec max (vec a, vec b);           ///< max(a.x,b.x) max(a.y,b.y)  max(a.z,b.z) 
+   inline friend vec min (vec a, vec b);           ///< min(a.x,b.x) min(a.y,b.y)  min(a.z,b.z)
+   inline friend vec max (vec a, vec b);           ///< max(a.x,b.x) max(a.y,b.y)  max(a.z,b.z)
    inline friend vec abs (vec a);                  ///< vec(abs(x),abs(y),abs(z))
    inline friend ostream & operator<< (ostream & o, vec v); ///< print vector
-   inline friend double costhetalab (vec k, vec kprim); ///< 
+   inline friend double costhetalab (vec k, vec kprim); ///<
    inline friend double cos (vec k, vec kprim);
    inline friend double thetalab (vec k, vec kprim);
 };
 
 ////////////////////////////////////////////////////////////////////////////
-//             I M P L E M E N T A T I O N                                //  
+//             I M P L E M E N T A T I O N                                //
 ////////////////////////////////////////////////////////////////////////////
 
 double & vec::operator[] (int i)
@@ -61,7 +80,7 @@ double & vec::operator[] (int i)
   vec::vec (double x1, double x2, double x3):x (x1), y (x2), z (x3)
   {
   }
-  vec::vec(string v) 
+  vec::vec(string v)
   {
 	stringstream(v)>>x>>y>>z;
   }
@@ -84,7 +103,7 @@ double & vec::operator[] (int i)
   {
     return sqrt (x * x + y * y + z * z);
   }
-  void vec::normalize () 
+  void vec::normalize ()
   { double d=sqrt (x * x + y * y + z * z);
     if(d==0) return;
     x/=d;
@@ -118,7 +137,7 @@ vec operator+ (vec a, vec b)
     return vec (a.x + b.x, a.y + b.y, a.z + b.z);
   }
 vec vec::operator+= (vec a)
-  { 
+  {
 	x+=a.x;
 	y+=a.y;
 	z+=a.z;
@@ -129,7 +148,7 @@ vec operator- (vec a, vec b)
     return vec (a.x - b.x, a.y - b.y, a.z - b.z);
   }
 vec vec::operator-= (vec a)
-  { 
+  {
 	x-=a.x;
 	y-=a.y;
 	z-=a.z;
@@ -148,7 +167,7 @@ vec operator* (vec b, double a)
     return vec (a * b.x, a * b.y, a * b.z);
   }
 vec vec::operator*= (double a)
-  { 
+  {
 	x*=a;
     y*=a;
     z*=a;
@@ -170,8 +189,8 @@ vec vec::fromZto(vec new_axis) ///< rotate self so that 0,0,1 goes to new_axis
  	vec zvec=vec(0,0,1);
     if(new_axis.z<0)
 		   zvec.z=-1;
-	   else 
-		   z*=-1; 
+	   else
+		   z*=-1;
     vec s=(zvec+new_axis.dir()).dir();
     return *this-=2*(*this*s)*s;
   }
@@ -203,10 +222,10 @@ double cos (vec k, vec kprim)
 
 double thetalab (vec k, vec kprim)
   {
-    return acos (k * kprim / sqrt ((k * k) * (kprim * kprim))); 
+    return acos (k * kprim / sqrt ((k * k) * (kprim * kprim)));
   }
 
 ////////////////////////////////////////////////////////////////////////////
-//              I M P L E M E N T A T I O N  -  E N D                     //  
+//              I M P L E M E N T A T I O N  -  E N D                     //
 ////////////////////////////////////////////////////////////////////////////
 #endif

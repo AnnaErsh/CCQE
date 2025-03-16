@@ -1,5 +1,24 @@
-#ifndef G4INCLFormFactor_HH_
-#define G4INCLFormFactor_HH_ 1
+// This file is part of CCQE, a quasi-elastic reaction modeling module.
+// Portions of this file are derived from the NuWro project.
+//
+// Copyright (C) 2025 Anna Ershova
+// Copyright (C) NuWro Developers
+//
+// CCQE is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// CCQE is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with CCQE. If not, see <https://www.gnu.org/licenses/>.
+
+#ifndef INCLUDE_FORMFACTOR_HH_
+#define INCLUDE_FORMFACTOR_HH_ 1
 
 #include <functional>
 
@@ -24,19 +43,19 @@ class FormFactor
     /**
 		* pseudoscalar axial form factor
 		*/
-    double Fp       (double Q2);
-    void   bbba05_FF(double Q2);
+    double Fp       (double Q2)
+    void   bbba05_FF(double Q2)
 
     /**
      * Axial form factor, ptrGa will be GaCC or GaNC depending on the channel
     */
     std::function<double(FormFactor*,double)> ptrGa;
-    double Ga  (double x) {ptrGa(this,x);};
+    double Ga  (double x) {ptrGa(this,x);}
     /**
      * Vector form factor, ptrGa will be GaCC or GaNC depending on the channel
     */
     std::function<double(FormFactor*,double,particle,int)> ptrFv12;
-    double Fv12(double x, particle p, int y) {ptrFv12(this,x,p,y);};
+    double Fv12(double x, particle p, int y) {ptrFv12(this,x,p,y);}
 
   private:
     double Fs12  (double Q2, double num);
@@ -65,4 +84,4 @@ class FormFactor
     bool ifCC;
 };
 
-#endif
+#endif // INCLUDE_FORMFACTOR_HH_
