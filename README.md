@@ -1,6 +1,6 @@
 # CCQE
 Standalone version of the quasi-elastic reaction modelling according to the Llewellyn-Smith formula. 
-Currently is dependen on the vect.h file that is a part of the NuWro project.
+Currently is dependent on the vect.h file that is a part of the NuWro project.
 
 # Installation
 Create a build directory:
